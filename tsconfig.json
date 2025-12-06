@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",                 // ★ REQUIRED by shadcn
+    "paths": {
+      "@/*": ["src/*"]              // ★ REQUIRED by shadcn
+    },
+    "composite": true               // required because you use references
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
