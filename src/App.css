@@ -8,3 +8,15 @@
 #root{
 min-width: 1280px;
 }
+.react-flow__node {
+    border-radius: 8px; /* Apply to all nodes */
+}
+.custom-node {
+    background: #fff;
+    border: 2px solid #ccc;
+    padding: 10px 15px;
+    min-width: 180px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+}
+.start-node { border-color: #4CAF50; }

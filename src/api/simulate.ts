@@ -1,27 +1,73 @@
-export const simulateWorkFlow = (workflowGraph: {
-  nodes: any[];
+// api/simulate.ts
+
+// Define interfaces for cleaner type handling
+interface NodeData {
+  title: string;
+  // Add other required properties for data if known
+  [key: string]: any;
+}
+
+interface WorkflowNode {
+  id: string;
+  type: string; // e.g., 'StartNode', 'TaskNode'
+  data: NodeData;
+  [key: string]: any;
+}
+
+interface WorkflowGraph {
+  nodes: WorkflowNode[];
   edges: any[];
-}) => {
-  const log = [
+}
+
+interface SimulationLogEntry {
+  step: number;
+  type: string;
+  message: string;
+}
+
+interface SimulationResult {
+  success: boolean;
+  log: SimulationLogEntry[];
+}
+
+export const simulateWorkflow = (
+  workflowGraph: WorkflowGraph
+): Promise<SimulationResult> => {
+  const startNodeTitle =
+    workflowGraph.nodes.find((n) => n.type === "StartNode")?.data.title ||
+    "Untitled Workflow";
+
+  const log: SimulationLogEntry[] = [
     {
       step: 1,
-      type: "Start",
-      message: `Workflow started: ${
-        workflowGraph.nodes.find((n) => n.type === "StartNode")?.data.title
-      }`,
+      type: "START",
+      message: `Workflow started: "${startNodeTitle}"`,
     },
     {
       step: 2,
-      type: "Task",
-      message: `Task 'Collect Documents' assigned to HR Admin.`,
+      type: "TASK",
+      message: `Task 'Collect Documents' assigned to HR Admin (Due: 2025-12-15).`,
     },
     {
       step: 3,
-      type: "Approval",
-      message: `Awaiting approval from Manager role.`,
+      type: "APPROVAL",
+      message: `Waiting for 'Manager' approval. Auto-approve threshold is 80%.`,
     },
-    { step: 4, type: "System", message: `Automated step: Email sent to user.` },
-    { step: 5, type: "End", message: `Workflow completed successfully.` },
+    {
+      step: 4,
+      type: "SYSTEM",
+      message: `Automated step: Email sent to recipient using SendGrid.`,
+    },
+    {
+      step: 5,
+      type: "END",
+      message: `Workflow completed successfully. Summary generated.`,
+    },
   ];
-  return Promise.resolve({ success: true, log });
+
+  // Return a Promise to simulate an asynchronous API call
+  return Promise.resolve({
+    success: true,
+    log: log,
+  });
 };
