@@ -25,16 +25,12 @@ import {
 } from "react-icons/fa";
 import { FaTimesCircle } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import React, { useState } from "react"; // Ensure React is imported
+import React, { useState } from "react";
 // Import the Draggable Node Component
 import DraggableNodeItem from "@/components/Canvas/DraggableItem";
 
-// ... (Type definitions remain unchanged) ...
-
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
-
-  // Custom Styles function remains unchanged to keep the design
   const getMenuItemStyles = (
     level: number,
     active: boolean,
@@ -48,12 +44,10 @@ export default function SideBar() {
     return undefined;
   };
 
-  // --- Start Node Isolation Handler ---
-  // This function is manually defined here to replace the DraggableNodeItem call for the Start Node
   const onStartNodeDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("application/reactflow", "StartNode");
     event.dataTransfer.effectAllowed = "move";
-    event.stopPropagation(); // Crucial: Prevent parent SubMenu handlers from canceling the drag
+    event.stopPropagation();
   };
 
   return (
@@ -66,7 +60,6 @@ export default function SideBar() {
         },
       }}
     >
-      {/* Collapse Button (Design preserved) */}
       <button
         onClick={() => setCollapsed(!collapsed)}
         className="text-gray-500 font-medium absolute top-20 right-2.5 cursor-pointer z-10"
@@ -78,7 +71,6 @@ export default function SideBar() {
         )}
       </button>
 
-      {/* TOP MENU SECTION */}
       <div className="mt-25">
         <Menu
           className="text-gray-500 font-medium"
@@ -102,7 +94,6 @@ export default function SideBar() {
               getMenuItemStyles(params.level, params.active, params.disabled),
           }}
         >
-          {/* SubMenu for Resources remains unchanged */}
           <SubMenu label="Resources" icon={<FaFolderOpen />}>
             <MenuItem icon={<FaTools />}>Integration</MenuItem>
             <MenuItem icon={<FaDatabase />}>Repository</MenuItem>
@@ -111,7 +102,6 @@ export default function SideBar() {
               Workflow Palette
             </h4>
 
-            {/* START NODE FIX: DIRECTLY DEFINED DRAGGABLE ELEMENT */}
             <div
               onDragStart={onStartNodeDragStart}
               draggable
@@ -123,9 +113,7 @@ export default function SideBar() {
                 <span>Start Workflow</span>
               </div>
             </div>
-            {/* END START NODE FIX */}
 
-            {/* The rest of the nodes use the working DraggableNodeItem component: */}
             <DraggableNodeItem
               nodeType="TaskNode"
               label="Human Task"
@@ -148,8 +136,6 @@ export default function SideBar() {
             />
           </SubMenu>
         </Menu>
-
-        {/* ... (Charts Menu) ... */}
         <Menu
           className="text-gray-500 font-medium"
           menuItemStyles={{
@@ -165,7 +151,6 @@ export default function SideBar() {
         </Menu>
       </div>
 
-      {/* BOTTOM MENU SECTION (Design preserved) */}
       <div>
         <Menu
           className="text-gray-500 font-medium absolute bottom-8 w-full"

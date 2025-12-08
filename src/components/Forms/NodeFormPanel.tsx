@@ -25,7 +25,6 @@ const NodeFormPanel: React.FC = () => {
     ? nodes.find((n) => n.id === selectedNodeId)
     : null;
 
-  // --- Form Renderer ---
   const renderForm = () => {
     if (!selectedNode) {
       return (
@@ -35,7 +34,6 @@ const NodeFormPanel: React.FC = () => {
       );
     }
 
-    // Router: Determine which configuration form to render based on the node's type
     switch (selectedNode.type) {
       case "StartNode":
         return (

@@ -47,16 +47,13 @@ const WorkflowSandbox: React.FC = () => {
     //   };
     // }
 
-    // 3. Simple Check for Disconnected Nodes
     const disconnectedNodes = nodes.filter((node) => {
-      // Find if the node has any connections (as a source or target)
       const hasIncoming = edges.some((e) => e.target === node.id);
       const hasOutgoing = edges.some((e) => e.source === node.id);
 
-      if (node.type === "StartNode") return !hasOutgoing; // Start must have outgoing
-      if (node.type === "EndNode") return !hasIncoming; // End must have incoming
+      if (node.type === "StartNode") return !hasOutgoing;
+      if (node.type === "EndNode") return !hasIncoming;
 
-      // Other nodes must have both, or at least one of each (simplified for time)
       return !hasIncoming || !hasOutgoing;
     });
 
@@ -65,8 +62,6 @@ const WorkflowSandbox: React.FC = () => {
         "Disconnected nodes found:",
         disconnectedNodes.map((n) => n.id)
       );
-      // You can decide if this should be a soft warning or a hard error:
-      // return { valid: false, message: `Validation Error: ${disconnectedNodes.length} nodes are potentially disconnected.` };
     }
 
     return { valid: true, message: "Structure is valid." };
@@ -158,7 +153,6 @@ const WorkflowSandbox: React.FC = () => {
     disabled: buttonDisabled,
   } = getButtonState();
 
-  // Log Display Content
   const getLogContent = () => {
     if (status === "loading")
       return (

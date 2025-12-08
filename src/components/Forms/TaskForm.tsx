@@ -3,7 +3,7 @@
 import React, { useCallback } from "react";
 import { useFlowStore } from "@/context/WorkFlowContext";
 import { type NodeProps } from "reactflow";
-import type { TaskNodeData, CustomField } from "@/types/flow"; // Import your specific types
+import type { TaskNodeData, CustomField } from "@/types/flow";
 import { FaTrash, FaPlusCircle } from "react-icons/fa";
 
 interface TaskFormProps {
@@ -14,7 +14,6 @@ interface TaskFormProps {
 const TaskForm: React.FC<TaskFormProps> = ({ nodeId, nodeData }) => {
   const { updateNodeData } = useFlowStore();
 
-  // Helper function to update any simple string field (title, assignee, etc.)
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
@@ -23,9 +22,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ nodeId, nodeData }) => {
     [nodeId, updateNodeData]
   );
 
-  // --- Dynamic Custom Fields Handlers ---
-
-  // Handler for updating a key or value within a custom field
   const handleCustomFieldChange = useCallback(
     (index: number, field: keyof CustomField, value: string) => {
       const newFields = [...nodeData.customFields];
@@ -35,7 +31,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ nodeId, nodeData }) => {
     [nodeId, nodeData.customFields, updateNodeData]
   );
 
-  // Handler for adding a new empty custom field
   const handleAddField = useCallback(() => {
     const newField: CustomField = { key: "", value: "" };
     updateNodeData(nodeId, {
@@ -43,7 +38,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ nodeId, nodeData }) => {
     });
   }, [nodeId, nodeData.customFields, updateNodeData]);
 
-  // Handler for removing a custom field by index
   const handleRemoveField = useCallback(
     (index: number) => {
       const newFields = nodeData.customFields.filter((_, i) => i !== index);
@@ -54,7 +48,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ nodeId, nodeData }) => {
 
   return (
     <div className="space-y-4">
-      {/* 1. Basic Node Configuration */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Task Title
@@ -94,7 +87,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ nodeId, nodeData }) => {
         />
       </div>
 
-      {/* 2. Dynamic Custom Fields Section */}
       <h4 className="text-md font-semibold pt-2 border-t mt-4">
         Custom Data Fields
       </h4>

@@ -5,7 +5,6 @@ import { useFlowStore } from "@/context/WorkFlowContext";
 import type { AutomatedStepData } from "@/types/flow";
 import { getMockAutomations } from "@/api/automation"; // Assuming you create this mock API file
 
-// Define the type for the mock automation action fetched from the API
 interface AutomationAction {
   id: string;
   name: string;
@@ -29,18 +28,21 @@ const AutomatedStepForm: React.FC<AutomatedStepFormProps> = ({
   // --- 1. Fetch Dynamic Actions from Mock API ---
   useEffect(() => {
     // In a real app, this would be an actual API call (e.g., fetch('/api/v1/automations'))
-    getMockAutomations().then((data) => {
+    getMockAutomations().then((data: any) => {
       setActions(data);
       setLoading(false);
 
       // Initialize actionParams if an action is already selected but params are missing
       if (nodeData.actionId && !nodeData.actionParams) {
-        const initialAction = data.find((a) => a.id === nodeData.actionId);
+        const initialAction = data.find((a: any) => a.id === nodeData.actionId);
         if (initialAction) {
-          const initialParams = initialAction.params.reduce((acc, param) => {
-            acc[param.name] = ""; // Initialize required parameters to empty string
-            return acc;
-          }, {} as { [key: string]: string });
+          const initialParams = initialAction.params.reduce(
+            (acc: any, param: any) => {
+              acc[param.name] = ""; // Initialize required parameters to empty string
+              return acc;
+            },
+            {} as { [key: string]: string }
+          );
           updateNodeData(nodeId, { actionParams: initialParams });
         }
       }

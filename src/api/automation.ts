@@ -1,7 +1,7 @@
 interface AutomationAction {
   id: string;
   label: string;
-  params: string[]; // List of parameter names (e.g., "to", "subject")
+  params: string[];
 }
 
 export const getMockAutomations = (): Promise<AutomationAction[]> => {

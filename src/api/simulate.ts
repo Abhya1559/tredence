@@ -1,15 +1,13 @@
 // api/simulate.ts
 
-// Define interfaces for cleaner type handling
 interface NodeData {
   title: string;
-  // Add other required properties for data if known
   [key: string]: any;
 }
 
 interface WorkflowNode {
   id: string;
-  type: string; // e.g., 'StartNode', 'TaskNode'
+  type: string;
   data: NodeData;
   [key: string]: any;
 }
@@ -64,8 +62,6 @@ export const simulateWorkflow = (
       message: `Workflow completed successfully. Summary generated.`,
     },
   ];
-
-  // Return a Promise to simulate an asynchronous API call
   return Promise.resolve({
     success: true,
     log: log,

@@ -16,7 +16,6 @@ const EndForm: React.FC<EndFormProps> = ({ nodeId, nodeData }) => {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value, type, checked } = e.target;
 
-      // Handle checkbox for boolean value
       const updatedValue = type === "checkbox" ? checked : value;
 
       updateNodeData(nodeId, { [name]: updatedValue });
