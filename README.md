@@ -1,8 +1,3 @@
-
-
-
-----------
-
 # 🚀 Workflow Designer: React Flow and TypeScript
 
 This project is a modern, web-based tool for designing, validating, and simulating business process workflows. It is built on a robust front-end stack using **React Flow** for the graphical interface and **TypeScript** for type safety, managed by a centralized React Context store.
