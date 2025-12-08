@@ -18,8 +18,5 @@ export const getMockAutomations = (): Promise<AutomationAction[]> => {
     },
   ];
 
-  // Wrap the data in Promise.resolve() to mimic an API response
   return Promise.resolve(mockActions);
 };
-
-// NOTE: You do not need the 'getAutomation' export if you use the structure above.
