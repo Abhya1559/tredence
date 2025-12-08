@@ -92,7 +92,7 @@ Contains business logic (validation) and mock API interfaces for simulation and 
     
     ```
     
-4.  The application will be available at `http://localhost:3000` (or the port specified by your toolchain).
+4.  The application will be available at `http://localhost:5173` (or the port specified by your toolchain).
     
 
 ----------
