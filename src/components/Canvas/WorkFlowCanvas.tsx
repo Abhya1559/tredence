@@ -5,7 +5,6 @@ import ReactFlow, {
   ReactFlowProvider,
   useReactFlow,
   type Node,
-  // We need to import the official Node type from reactflow to correctly type onNodeClick
   type OnNodeClick,
 } from "reactflow";
 import "reactflow/dist/style.css";
@@ -15,7 +14,7 @@ import StartNode from "@/components/Nodes/StarterNode";
 import TaskNode from "@/components/Nodes/TaskNodes";
 import ApprovalNode from "@/components/Nodes/ApprovalNodes";
 import AutomatedStepNode from "@/components/Nodes/AutomatedNode";
-import EndNode from "../Nodes/EndNode";
+import EndNode from "@/components/Nodes/EndNode";
 
 // Import your custom state store and necessary types
 import { useFlowStore } from "@/context/WorkFlowContext";
@@ -34,7 +33,6 @@ const nodeTypes = {
 const getInitialNodeData = (type: string): AllNodeData => {
   switch (type) {
     case "StartNode":
-      // Using 'as AllNodeData' assumes StartNodeData is assignable to AllNodeData
       return { title: "Workflow Start", metadata: [] } as AllNodeData;
     case "TaskNode":
       return {
@@ -95,7 +93,7 @@ const FlowCanvas: React.FC = () => {
 
       // 1. Get the type string from the sidebar item
       const type = event.dataTransfer.getData("application/reactflow");
-
+      console.log(type);
       // Check if the type is a known node type before proceeding
       if (!type || !nodeTypes[type as keyof typeof nodeTypes]) {
         console.error(`Attempted to drop unknown node type: ${type}`);

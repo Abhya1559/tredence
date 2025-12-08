@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useFlowStore } from "@/context/WorkFlowContext";
-import { simulateWorkflow } from "../../api/simulate";
+import { simulateWorkflow } from "@/api/simulate";
 import type { AllNodeData } from "@/types/flow";
 
 interface SimulationLogEntry {
@@ -24,6 +24,8 @@ const WorkflowSandbox: React.FC = () => {
 
   const validationResult: ValidationResult = useMemo(() => {
     const startNodes = nodes.filter((n) => n.type === "StartNode");
+    console.log(startNodes);
+    console.log(startNodes);
     if (startNodes.length === 0) {
       return {
         valid: false,
@@ -122,7 +124,7 @@ const WorkflowSandbox: React.FC = () => {
       ]);
       setStatus("error");
     }
-  }, [nodes, edges, validationResult.valid, validationResult.message]);
+  }, [nodes, edges, validationResult]);
 
   // --- 4. UI Logic ---
   // Button State
@@ -181,7 +183,7 @@ const WorkflowSandbox: React.FC = () => {
               entry.type.includes("ERROR") ? "text-red-700 font-bold" : ""
             }`}
           >
-            **[{entry.step}]** {entry.message}
+            [{entry.step}] {entry.message}
           </li>
         ))}
       </ul>
