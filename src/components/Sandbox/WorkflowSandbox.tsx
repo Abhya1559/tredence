@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useFlowStore } from "@/context/WorkFlowContext";
 import { simulateWorkflow } from "@/api/simulate";
-import type { AllNodeData } from "@/types/flow";
+// import type { AllNodeData } from "@/types/flow";
 
 interface SimulationLogEntry {
   step: number;
@@ -24,14 +24,12 @@ const WorkflowSandbox: React.FC = () => {
 
   const validationResult: ValidationResult = useMemo(() => {
     const startNodes = nodes.filter((n) => n.type === "StartNode");
-    console.log(startNodes);
-    console.log(startNodes);
-    if (startNodes.length === 0) {
-      return {
-        valid: false,
-        message: "Validation Error: Workflow must contain a Start Node.",
-      };
-    }
+    // if (startNodes.length === 0) {
+    //   return {
+    //     valid: false,
+    //     message: "Validation Error: Workflow must contain a Start Node.",
+    //   };
+    // }
     if (startNodes.length > 1) {
       return {
         valid: false,
@@ -41,13 +39,13 @@ const WorkflowSandbox: React.FC = () => {
 
     // 2. Check for at least one End Node
     const endNodes = nodes.filter((n) => n.type === "EndNode");
-    if (endNodes.length === 0) {
-      return {
-        valid: false,
-        message:
-          "Validation Error: Workflow must contain at least one End Node.",
-      };
-    }
+    // if (endNodes.length === 0) {
+    //   return {
+    //     valid: false,
+    //     message:
+    //       "Validation Error: Workflow must contain at least one End Node.",
+    //   };
+    // }
 
     // 3. Simple Check for Disconnected Nodes
     const disconnectedNodes = nodes.filter((node) => {
@@ -88,17 +86,14 @@ const WorkflowSandbox: React.FC = () => {
       return;
     }
 
-    // Prepare the payload (Serialization is inherent in passing nodes/edges)
     const workflowGraph = { nodes, edges };
 
     try {
-      // Delay simulation to show loading state
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Call the mock API (simulateWorkflow must return Promise<{ success: boolean, log: SimulationLogEntry[] }>)
       const result = await simulateWorkflow(workflowGraph);
 
-      // Handle Result
       if (result.success && result.log) {
         setSimulationLog(result.log);
         setStatus("success");

@@ -20,7 +20,6 @@ const StartForm: React.FC<StartFormProps> = ({ nodeId, nodeData }) => {
     [nodeId, updateNodeData]
   );
 
-  // Handlers for Dynamic Metadata
   const handleMetadataChange = useCallback(
     (index: number, field: keyof CustomField, value: string) => {
       const newMetadata = [...nodeData.metadata];
